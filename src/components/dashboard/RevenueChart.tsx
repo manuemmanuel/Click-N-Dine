@@ -61,25 +61,6 @@ export default function RevenueChart({ data }: RevenueChartProps) {
             </div>
           );
         })}
-      <div className="h-72 flex items-end space-x-3">
-        {data.map((item) => (
-          <div key={item.month} className="flex-1 group">
-            <div className="relative">
-              <div
-                className="bg-gradient-to-t from-red-500 to-red-600 rounded-t-xl transition-all duration-300 group-hover:from-red-600 group-hover:to-red-700"
-                style={{
-                  height: `${(item.revenue / maxRevenue) * 100}%`,
-                }}
-              />
-              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-base text-slate-600 font-medium">
-                {item.month}
-              </div>
-            </div>
-            <div className="text-center text-base font-medium text-slate-900 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              ${item.revenue.toLocaleString()}
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );
