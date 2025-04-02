@@ -42,6 +42,7 @@ export default function SideNav({ isNavOpen }: SideNavProps) {
         { name: 'Sales Reports', href: '/admin/orders/reports' }
       ]
     },
+    { name: 'Payments', href: '/admin/payments', icon: '💳' },
   ];
 
   const handleLogout = async () => {
