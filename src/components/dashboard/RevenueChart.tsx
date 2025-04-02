@@ -1,3 +1,30 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartOptions,
+  TooltipItem,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 interface RevenueChartProps {
   data: Array<{
     month: string;
@@ -6,62 +33,86 @@ interface RevenueChartProps {
 }
 
 export default function RevenueChart({ data }: RevenueChartProps) {
-  // If no data, show empty state
-  if (!data || data.length === 0) {
-    return (
-      <div className="bg-white p-8 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.1)] hover:shadow-[0_0_50px_rgba(0,0,0,0.15)] transition-all">
-        <div className="flex items-center justify-between mb-8">
-          <h3 className="text-2xl font-semibold text-slate-900">Revenue Overview</h3>
-          <div className="flex items-center space-x-3">
-            <div className="w-4 h-4 rounded-full bg-red-500"></div>
-            <span className="text-base text-slate-600">Monthly Revenue</span>
-          </div>
-        </div>
-        <div className="h-72 flex items-center justify-center">
-          <p className="text-slate-500 text-lg">No revenue data available</p>
-        </div>
-      </div>
-    );
-  }
+  const chartRef = useRef<ChartJS>(null);
 
-  const maxRevenue = Math.max(...data.map(d => d.revenue));
-  const minHeight = 20; // Minimum height for bars in pixels
+  const chartData = {
+    labels: data.map(item => item.month),
+    datasets: [
+      {
+        label: 'Revenue',
+        data: data.map(item => item.revenue),
+        borderColor: '#ef4444',
+        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointBackgroundColor: '#ef4444',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointHoverBackgroundColor: '#ef4444',
+        pointHoverBorderColor: '#fff',
+        pointHoverBorderWidth: 2,
+      },
+    ],
+  };
+
+  const options: ChartOptions<'line'> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        padding: 12,
+        displayColors: false,
+        callbacks: {
+          label: function(context: TooltipItem<'line'>) {
+            return `₹${context.parsed.y.toLocaleString()}`;
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          color: '#64748b',
+          font: {
+            size: 12,
+          },
+        },
+      },
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: 'rgba(0, 0, 0, 0.05)',
+          drawBorder: false,
+        },
+        ticks: {
+          color: '#64748b',
+          font: {
+            size: 12,
+          },
+          callback: function(value: number) {
+            return `₹${value.toLocaleString()}`;
+          },
+        },
+      },
+    },
+  };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.1)] hover:shadow-[0_0_50px_rgba(0,0,0,0.15)] transition-all">
-      <div className="flex items-center justify-between mb-8">
-        <h3 className="text-2xl font-semibold text-slate-900">Revenue Overview</h3>
-        <div className="flex items-center space-x-3">
-          <div className="w-4 h-4 rounded-full bg-red-500"></div>
-          <span className="text-base text-slate-600">Monthly Revenue</span>
-        </div>
-      </div>
-      <div className="h-72 flex items-end space-x-4">
-        {data.map((item) => {
-          const height = maxRevenue > 0 
-            ? Math.max(minHeight, (item.revenue / maxRevenue) * 100)
-            : minHeight;
-
-          return (
-            <div key={item.month} className="flex-1 group">
-              <div className="relative">
-                <div
-                  className="bg-gradient-to-t from-red-500 to-red-600 rounded-t-xl transition-all duration-300 group-hover:from-red-600 group-hover:to-red-700"
-                  style={{
-                    height: `${height}%`,
-                  }}
-                />
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-base text-slate-600 font-medium whitespace-nowrap">
-                  {item.month}
-                </div>
-              </div>
-              <div className="text-center text-base font-medium text-slate-900 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                ${item.revenue.toLocaleString()}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+    <div className="h-[300px] w-full">
+      <Line ref={chartRef} data={chartData} options={options} />
     </div>
   );
 } 

@@ -14,9 +14,30 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Validate Gmail address
   const validateEmail = (email: string) => {
-    const regex = /@gmail\.com$/;
-    return regex.test(email);
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    return emailRegex.test(email);
+  };
+
+  // Validate password
+  const validatePassword = (password: string) => {
+    if (password.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+    if (!/[A-Z]/.test(password)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+    if (!/[a-z]/.test(password)) {
+      return 'Password must contain at least one lowercase letter';
+    }
+    if (!/[0-9]/.test(password)) {
+      return 'Password must contain at least one number';
+    }
+    if (!/[!@#$%^&*]/.test(password)) {
+      return 'Password must contain at least one special character (!@#$%^&*)';
+    }
+    return null;
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -26,6 +47,13 @@ export default function AdminLoginPage() {
     // Validate email
     if (!validateEmail(email)) {
       setError('Please use a valid Gmail address');
+      return;
+    }
+
+    // Validate password
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      setError(passwordError);
       return;
     }
 
@@ -66,7 +94,7 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  pattern="[a-z0-9._%+-]+@gmail\.com$"
+                  pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900"
                   placeholder="Enter your Gmail address"
                 />
@@ -86,6 +114,9 @@ export default function AdminLoginPage() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-900"
                   placeholder="Enter your password"
                 />
+                <p className="mt-1 text-sm text-gray-500">
+                  Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character
+                </p>
               </div>
 
               {error && (

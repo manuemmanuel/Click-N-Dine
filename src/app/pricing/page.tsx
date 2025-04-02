@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 const pricingPlans = [
   {
     name: 'Lunch Special',
-    price: 24.99,
+    price: 499,
     description: 'Perfect for a quick business lunch',
     features: [
       'Main course selection',
@@ -19,7 +19,7 @@ const pricingPlans = [
   },
   {
     name: 'Dinner Experience',
-    price: 49.99,
+    price: 999,
     description: 'Full dining experience with premium options',
     features: [
       'Premium main course',
@@ -32,7 +32,7 @@ const pricingPlans = [
   },
   {
     name: 'Family Package',
-    price: 89.99,
+    price: 1799,
     description: 'Great value for family dining',
     features: [
       '4 main courses',
@@ -84,7 +84,7 @@ export default function PricingPage() {
                 <h3 className="text-2xl font-semibold text-slate-900 mb-2">{plan.name}</h3>
                 <p className="text-gray-600 mb-6">{plan.description}</p>
                 <div className="mb-8">
-                  <span className="text-4xl font-bold text-red-600">${plan.price}</span>
+                  <span className="text-4xl font-bold text-red-600">₹{plan.price}</span>
                   <span className="text-gray-600">/person</span>
                 </div>
                 <ul className="space-y-4 mb-8">

@@ -13,7 +13,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="text-xl font-bold text-red-600">
-            Foodie
+            Click-N-Dine
           </Link>
 
           {/* Desktop Navigation */}
