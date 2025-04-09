@@ -17,6 +17,7 @@ interface Role {
 
 export default function StaffRoles() {
   const [isNavOpen, setIsNavOpen] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [roles, setRoles] = useState<Role[]>([]);
   const [isAddingRole, setIsAddingRole] = useState(false);
   const [editingRole, setEditingRole] = useState<Role | null>(null);
@@ -128,10 +129,23 @@ export default function StaffRoles() {
     }));
   };
 
+  const closeNav = () => {
+    setIsNavOpen(false);
+  };
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
     <div className={`${aeonik.variable} font-sans min-h-screen bg-gradient-to-b from-white to-gray-50`}>
-      <SideNav isNavOpen={isNavOpen} />
-      <div className={`${isNavOpen ? 'ml-64' : 'ml-0'} transition-margin duration-200 ease-in-out`}>
+      <SideNav 
+        isNavOpen={isNavOpen} 
+        onClose={closeNav}
+        isCollapsed={isCollapsed}
+        onToggleCollapse={toggleCollapse}
+      />
+      <div className={`${isNavOpen ? (isCollapsed ? 'ml-0' : 'ml-64') : 'ml-0'} transition-all duration-200 ease-in-out w-full`}>
         <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         
         <main className="p-6">
