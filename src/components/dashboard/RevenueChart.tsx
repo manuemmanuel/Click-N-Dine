@@ -25,18 +25,38 @@ ChartJS.register(
   Legend
 );
 
-interface RevenueChartProps {
-  data: Array<{
-    month: string;
-    revenue: number;
-  }>;
+type TimeRange = 'daily' | 'weekly' | 'monthly';
+
+interface RevenueData {
+  date?: string;
+  week?: string;
+  month?: string;
+  revenue: number;
 }
 
-export default function RevenueChart({ data }: RevenueChartProps) {
-  const chartRef = useRef<ChartJS>(null);
+interface RevenueChartProps {
+  data: RevenueData[];
+  type: TimeRange;
+}
+
+export default function RevenueChart({ data, type }: RevenueChartProps) {
+  const chartRef = useRef<ChartJS<'line'>>(null);
+
+  const getLabel = (item: RevenueData) => {
+    switch (type) {
+      case 'daily':
+        return new Date(item.date!).toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+      case 'weekly':
+        return item.week;
+      case 'monthly':
+        return item.month;
+      default:
+        return '';
+    }
+  };
 
   const chartData = {
-    labels: data.map(item => item.month),
+    labels: data.map(item => getLabel(item)),
     datasets: [
       {
         label: 'Revenue',
@@ -82,7 +102,6 @@ export default function RevenueChart({ data }: RevenueChartProps) {
       x: {
         grid: {
           display: false,
-          drawBorder: false,
         },
         ticks: {
           color: '#64748b',
@@ -95,14 +114,13 @@ export default function RevenueChart({ data }: RevenueChartProps) {
         beginAtZero: true,
         grid: {
           color: 'rgba(0, 0, 0, 0.05)',
-          drawBorder: false,
         },
         ticks: {
           color: '#64748b',
           font: {
             size: 12,
           },
-          callback: function(value: number) {
+          callback: function(value) {
             return `₹${value.toLocaleString()}`;
           },
         },
@@ -111,7 +129,7 @@ export default function RevenueChart({ data }: RevenueChartProps) {
   };
 
   return (
-    <div className="h-[300px] w-full">
+    <div className="h-[400px]">
       <Line ref={chartRef} data={chartData} options={options} />
     </div>
   );

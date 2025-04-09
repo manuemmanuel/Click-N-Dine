@@ -49,7 +49,7 @@ export default function SideNav({ isNavOpen }: SideNavProps) {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      router.push('/login');
+      router.push('/');
     } catch (error) {
       console.error('Error logging out:', error);
     }
