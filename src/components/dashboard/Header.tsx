@@ -23,14 +23,22 @@ export default function Header({ isNavOpen, setIsNavOpen }: HeaderProps) {
     }
   };
 
+  const toggleSidebar = () => {
+    setIsNavOpen(!isNavOpen);
+    if (!isNavOpen) {
+      const event = new CustomEvent('forceSidebarVisible');
+      window.dispatchEvent(event);
+    }
+  };
+
   return (
     <header className="bg-white shadow-sm">
       <div className="flex items-center justify-between px-4 py-4">
         <button
-          onClick={() => setIsNavOpen(!isNavOpen)}
+          onClick={toggleSidebar}
           className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
         >
-          <span className="sr-only">Open sidebar</span>
+          <span className="sr-only">Toggle sidebar</span>
           <svg
             className="h-6 w-6"
             fill="none"

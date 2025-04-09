@@ -162,7 +162,7 @@ export default function QRScanPage() {
                 </svg>
               </button>
               <a 
-                href="/admin"
+                href="/admin/login"
                 className="inline-flex items-center bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl hover:bg-white/10 transition-all transform hover:scale-105 text-lg font-medium shadow-lg hover:shadow-xl group"
               >
                 Admin Login
@@ -283,7 +283,7 @@ export default function QRScanPage() {
         </div>
       </div>
 
-      {/* QR Scanner Section */}
+        {/* QR Scanner Section */}
       <div id="qr-scanner-section" className="py-8 sm:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center space-y-4 sm:space-y-8 mb-8 sm:mb-12">
@@ -298,62 +298,62 @@ export default function QRScanPage() {
           <div className="max-w-2xl mx-auto">
             <div className="space-y-4 sm:space-y-6">
               <div className="bg-white p-4 sm:p-8 rounded-xl sm:rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.1)] hover:shadow-[0_0_50px_rgba(0,0,0,0.15)] transition-all">
-                <div 
-                  id="reader" 
-                  className="overflow-hidden rounded-xl"
-                  style={{ border: 'none' }}
-                ></div>
-              </div>
-
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-600 text-center text-sm sm:text-base">
-                  {error}
-                </div>
-              )}
-              
-              {scannedUserId && (
-                <div className="flex flex-col items-center space-y-4 sm:space-y-6 bg-white p-6 sm:p-8 rounded-xl sm:rounded-2xl shadow-lg">
-                  <div className="text-center">
-                    <p className="text-xl sm:text-2xl font-medium text-slate-800">{scannedUserId}</p>
-                  </div>
-                  
-                  <div className="flex flex-col space-y-3 sm:space-y-4 w-full">
-                    <button 
-                      onClick={handleBookMeal}
-                      className="inline-flex items-center bg-red-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl hover:bg-red-700 transition-all transform hover:scale-105 text-base sm:text-lg font-medium shadow-lg hover:shadow-xl w-full justify-center group"
-                    >
-                      Book Meal
-                      <svg 
-                        className="w-4 h-4 sm:w-5 sm:h-5 ml-2 transform group-hover:translate-x-1 transition-transform" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-
-                    <button 
-                      onClick={handleRestartScanner}
-                      className="inline-flex items-center bg-white text-red-600 border-2 border-red-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl hover:bg-red-50 transition-all transform hover:scale-105 text-base sm:text-lg font-medium shadow-lg hover:shadow-xl w-full justify-center group"
-                    >
-                      Scan Another Code
-                      <svg 
-                        className="w-4 h-4 sm:w-5 sm:h-5 ml-2 transform group-hover:translate-x-1 transition-transform" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              )}
+              <div 
+                id="reader" 
+                className="overflow-hidden rounded-xl"
+                style={{ border: 'none' }}
+              ></div>
             </div>
-          </div>
-        </div>
-      </div>
+
+            {error && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-600 text-center text-sm sm:text-base">
+                {error}
+              </div>
+            )}
+            
+            {scannedUserId && (
+                <div className="flex flex-col items-center space-y-4 sm:space-y-6 bg-white p-6 sm:p-8 rounded-xl sm:rounded-2xl shadow-lg">
+                <div className="text-center">
+                    <p className="text-xl sm:text-2xl font-medium text-slate-800">{scannedUserId}</p>
+                </div>
+                
+                  <div className="flex flex-col space-y-3 sm:space-y-4 w-full">
+                  <button 
+                    onClick={handleBookMeal}
+                      className="inline-flex items-center bg-red-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl hover:bg-red-700 transition-all transform hover:scale-105 text-base sm:text-lg font-medium shadow-lg hover:shadow-xl w-full justify-center group"
+                  >
+                    Book Meal
+                    <svg 
+                        className="w-4 h-4 sm:w-5 sm:h-5 ml-2 transform group-hover:translate-x-1 transition-transform" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+
+                  <button 
+                    onClick={handleRestartScanner}
+                      className="inline-flex items-center bg-white text-red-600 border-2 border-red-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl hover:bg-red-50 transition-all transform hover:scale-105 text-base sm:text-lg font-medium shadow-lg hover:shadow-xl w-full justify-center group"
+                  >
+                    Scan Another Code
+                    <svg 
+                        className="w-4 h-4 sm:w-5 sm:h-5 ml-2 transform group-hover:translate-x-1 transition-transform" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+                  </div>
+                </div>
+              </div>
+            </div>
 
       {/* Help & Support Section */}
       <div className="py-8 sm:py-16 bg-gray-50">
@@ -365,7 +365,7 @@ export default function QRScanPage() {
             <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Our support team is here to assist you with any questions or concerns
             </p>
-          </div>
+            </div>
 
           <div className="grid md:grid-cols-2 gap-4 sm:gap-8 max-w-4xl mx-auto">
             <div className="bg-white p-6 sm:p-8 rounded-xl sm:rounded-2xl shadow-lg">

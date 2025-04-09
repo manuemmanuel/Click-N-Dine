@@ -146,7 +146,7 @@ export default function OrderReports() {
 
   return (
     <div className={`${aeonik.variable} font-sans min-h-screen bg-gradient-to-b from-white to-gray-50`}>
-      <SideNav isNavOpen={isNavOpen} />
+      <SideNav isNavOpen={isNavOpen} onClose={() => setIsNavOpen(false)} />
       <div className={`${isNavOpen ? 'ml-64' : 'ml-0'} transition-margin duration-200 ease-in-out`}>
         <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         

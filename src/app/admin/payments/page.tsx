@@ -92,7 +92,7 @@ export default function PaymentsPage() {
 
   return (
     <div className={`${aeonik.variable} font-sans min-h-screen bg-gradient-to-b from-gray-50 to-white`}>
-      <SideNav isNavOpen={isNavOpen} />
+      <SideNav isNavOpen={isNavOpen} onClose={() => setIsNavOpen(false)} />
       <div className={`${isNavOpen ? 'ml-64' : 'ml-0'} transition-margin duration-200 ease-in-out`}>
         <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         
@@ -182,7 +182,7 @@ export default function PaymentsPage() {
                       <div className="bg-white p-4 rounded-lg border border-gray-200 inline-block">
                         <div className="relative w-[200px] h-[200px]">
                           <Image
-                            src="/qr-codes/payment-qr.png"
+                            src="/qr-codes/payment-qr.jpg"
                             alt="Payment QR Code"
                             fill
                             className="object-contain"
